@@ -2,8 +2,6 @@ import sys
 import os
 import pandas as pd
 from langchain.document_loaders import PyPDFLoader
-from langchain.document_loaders import Docx2txtLoader
-from langchain.document_loaders import TextLoader
 from langchain.document_loaders import CSVLoader
 from langchain.document_loaders import DataFrameLoader
 from langchain.embeddings import OpenAIEmbeddings
@@ -53,7 +51,7 @@ white = "\033[0;39m"
 
 chat_history = []
 print(f"{yellow}---------------------------------------------------------------------------------")
-print('Welcome to the DocBot. You are now ready to start interacting with your documents')
+print('Welcome to the CSV Chatbot. You are now ready to start interacting with your CSV files')
 print('---------------------------------------------------------------------------------')
 while True:
     query = input(f"{green}Prompt: ")
