@@ -18,15 +18,13 @@ import constants
 os.environ["OPENAI_API_KEY"] = constants.APIKEY
 
 documents = []
-for file in os.listdir("docs"):
+for file in os.listdir("data"):
     if file.endswith(".pdf"):
-        pdf_path = "./docs/" + file
+        pdf_path = "./data/" + file
         loader = PyPDFLoader(pdf_path)
         documents.extend(loader.load())
     elif file.endswith('.csv'):
-        csv_path = "./docs/" + file
-        # df = pd.read_csv(csv_path)
-        # loader = DataFrameLoader(df, page_content_column="ID")
+        csv_path = "./data/" + file
         loader = CSVLoader(csv_path, source_column="ID")
         documents.extend(loader.load())
 
