@@ -1,68 +1,37 @@
 import sys
 import os
 import pandas as pd
-from langchain.document_loaders import PyPDFLoader
-from langchain.document_loaders import Docx2txtLoader
-from langchain.document_loaders import TextLoader
-from langchain.document_loaders import CSVLoader
-from langchain.document_loaders import DataFrameLoader
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
 from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
-from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationBufferMemory
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.prompts import PromptTemplate
+from langchain.agents import create_pandas_dataframe_agent
 
 import constants
 
 os.environ["OPENAI_API_KEY"] = constants.APIKEY
 
-documents = []
-for file in os.listdir("docs"):
-    if file.endswith(".pdf"):
-        pdf_path = "./docs/" + file
-        loader = PyPDFLoader(pdf_path)
-        documents.extend(loader.load())
-    elif file.endswith('.csv'):
-        csv_path = "./docs/" + file
-        # df = pd.read_csv(csv_path)
-        # loader = DataFrameLoader(df, page_content_column="ID")
-        loader = CSVLoader(csv_path, source_column="ID")
-        documents.extend(loader.load())
+df = pd.read_csv("./docs/ml_project1_data.csv")
 
+df2 = pd.read_csv("./docs/dictionary.csv")
 
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=10)
-documents = text_splitter.split_documents(documents)
-
-
-vectordb = Chroma.from_documents(documents, embedding=OpenAIEmbeddings(), persist_directory="./data")
-vectordb.persist()
-
-docs_qa = ConversationalRetrievalChain.from_llm(
-    ChatOpenAI(temperature=0.9, model_name="gpt-3.5-turbo"),
-    vectordb.as_retriever(search_kwargs={'k': 6}),
-    return_source_documents=True,
-    verbose=False
-)
+agent = create_pandas_dataframe_agent(OpenAI(temperature=0), [df,df2], verbose=True)
 
 yellow = "\033[0;33m"
 green = "\033[0;32m"
 white = "\033[0;39m"
 
+persist = True
+
 chat_history = []
 print(f"{yellow}---------------------------------------------------------------------------------")
-print('Welcome to the DocBot. You are now ready to start interacting with your documents')
+print('Welcome to the CSV Chatbot. You are now ready to start interacting with your CSV file/s')
 print('---------------------------------------------------------------------------------')
-while True:
-    query = input(f"{green}Prompt: ")
+while persist:
+    query = input(f"{green}Query: ")
     if query == "exit" or query == "quit" or query == "q" or query == "f":
         print('Exiting')
         sys.exit()
-    if query == '':
-        continue
-    result = docs_qa(
-        {"question": query, "chat_history": chat_history})
-    print(f"{white}Answer: " + result["answer"])
-    chat_history.append((query, result["answer"]))
+    else:
+        result = agent.run(query)
+        chat_history.append((query, result))
+ 
+    
+
