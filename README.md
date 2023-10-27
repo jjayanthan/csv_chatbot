@@ -4,7 +4,9 @@ This is a Python based chatbot project, which allows the user to interact with t
 
 While this initially seemed like a good solution, the chatbot didn't seem to be reading the entire CSV file as seen in the screenshot below. 
 
-After researching online, it seems that this is a common issue with Langchain Document Loader, where the results are only correct some of the time. This apparently is because the OpenAI token limit is 4096 tokens and so only 6-7 chunks of text can be sent from the Vector DB used, thus the CSV file provided is too large. This however, is a good solution to query smaller documents of various types.
+<img width="918" alt="Screenshot 2023-10-27 at 01 57 40" src="https://github.com/jjayanthan/csv_chatbot/assets/142901385/f452f408-eab6-4e9f-a8c9-e9cc496c46c1">
+
+After researching online, it seems that this is a common issue with Langchain Document Loader, where the results are only correct some of the time. This apparently is because the OpenAI token limit is 4096 tokens and so only 6-7 chunks of text can be sent from the Vector DB used, thus the CSV file provided is too large. This however, is a good solution to query smaller documents of various types (Please see, https://betterprogramming.pub/building-a-multi-document-reader-and-chatbot-with-langchain-and-chatgpt-d1864d47e339).
 
 
 ## Environment Variables
