@@ -2,10 +2,7 @@ import sys
 import os
 import pandas as pd
 from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
 from langchain.agents import create_pandas_dataframe_agent
-from langchain.chat_models import ChatOpenAI
-from langchain.agents.agent_types import AgentType
 
 import constants
 
@@ -28,7 +25,7 @@ print(f"{yellow}----------------------------------------------------------------
 print('Welcome to the CSV Chatbot. You are now ready to start interacting with your CSV file/s')
 print('---------------------------------------------------------------------------------')
 while persist:
-    query = input(f"{green}Prompt: ")
+    query = input(f"{green}Query: ")
     if query == "exit" or query == "quit" or query == "q" or query == "f":
         print('Exiting')
         sys.exit()
