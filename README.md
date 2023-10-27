@@ -1,4 +1,4 @@
-# csv_chatbot
+# CSV Chatbot
 
 This is a Python based chatbot project, which allows the user to interact with the AI agent (provided by OpenAI), to query multiple datasets from a CSV file which has already been provided. 
 
