@@ -25,4 +25,6 @@ Python will be required to run this project. Langchain is used in this project w
 ```
 When started up, you should see something like below show in terminal. You can type your questions regarding the CSV file where it says Query: in green. 
 
+<img width="921" alt="Screenshot 2023-10-27 at 01 40 31" src="https://github.com/jjayanthan/csv_chatbot/assets/142901385/0abce7cc-62c8-481d-a8bf-989f4b05994b">
+
 
