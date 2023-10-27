@@ -25,4 +25,4 @@ Python will be required to run this project. Langchain is used in this project w
   pip install -r requirements.txt
   python chatbot.py
 ```
-When started up, you should see something like below show in terminal. You can type your questions regarding the CSV file where it says Query: in green. Also, when running this script, it may work better in a virtual environment.
+When started up, you should see something like the above screenshot show in terminal. You can type your questions regarding the CSV file where it says Query: in green. Also, when running this script, it may work better in a virtual environment.
