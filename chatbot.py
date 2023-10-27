@@ -17,6 +17,7 @@ import constants
 
 os.environ["OPENAI_API_KEY"] = constants.APIKEY
 
+# load documents in data file
 documents = []
 for file in os.listdir("data"):
     if file.endswith(".pdf"):
@@ -28,7 +29,7 @@ for file in os.listdir("data"):
         loader = CSVLoader(csv_path, source_column="ID")
         documents.extend(loader.load())
 
-
+# split the data to give better results, the overlap ensures no data is lost
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=10)
 documents = text_splitter.split_documents(documents)
 
